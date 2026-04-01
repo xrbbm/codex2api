@@ -1,0 +1,19 @@
+services:
+  codex2api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: codex2api:local
+    container_name: codex2api
+    ports:
+      - "13698:13698"
+    environment:
+      PORT: "13698"
+      DATA_DIR: "/home/nonroot/.codex2api"
+    volumes:
+      - codex2api_data:/home/nonroot/.codex2api
+      - ${HOME}/.codex/auth.json:/home/nonroot/.codex/auth.json:ro
+    restart: unless-stopped
+
+volumes:
+  codex2api_data:
